@@ -1,4 +1,5 @@
 ﻿using PEFile;
+using System;
 using System.IO;
 using System.Windows;
 
@@ -11,9 +12,16 @@ namespace DaC_Launcher
     {
         public MainWindow()
         {
-            InitializeComponent();
-            checkInstall();
-            setLAA();
+            try
+            {
+                InitializeComponent();
+                checkInstall();
+                setLAA();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show($"Start not possible or Exception occurs {e}  ", "DaC Launcher Error");
+            }
 
         }
 
@@ -36,15 +44,18 @@ namespace DaC_Launcher
                 result = MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
                 System.Windows.Application.Current.Shutdown();
             }
-            if (!Directory.Exists(gameDir + "data/models_missile/textures"))
-            {
-                Directory.CreateDirectory(gameDir + "data/models_missile/textures");
-            }
-            if(Directory.Exists(cwd + "/data/models_missile"))
-            {
-                copyFiles(cwd + "/data/models_missile", gameDir + "/data/models_missile");
-            }
             string casFiles = gameDir + "/data/models_missile/trollmen_javelin.cas";
+            if (!File.Exists(casFiles))
+            {
+                if (!Directory.Exists(gameDir + "data/models_missile/textures"))
+                {
+                    Directory.CreateDirectory(gameDir + "data/models_missile/textures");
+                }
+                if (Directory.Exists(cwd + "/data/models_missile"))
+                {
+                    copyFiles(cwd + "/data/models_missile", gameDir + "/data/models_missile");
+                }
+            }
             if (!File.Exists(casFiles))
             {
                 string messageBoxText = "You have not installed the missile cas models into your Medieval 2 directory. Install the latest hotfix correctly";
