@@ -36,9 +36,9 @@ namespace DaC_Launcher
                 result = MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
                 System.Windows.Application.Current.Shutdown();
             }
-            if (!Directory.Exists(gameDir + "data/models_missile"))
+            if (!Directory.Exists(gameDir + "data/models_missile/textures"))
             {
-                Directory.CreateDirectory(gameDir + "data/models_missile");
+                Directory.CreateDirectory(gameDir + "data/models_missile/textures");
             }
             if(Directory.Exists(cwd + "/data/models_missile"))
             {
