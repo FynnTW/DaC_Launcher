@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DaC_Launcher"
         mc:Ignorable="d"
-        Title="Dac Options Configurator" Icon="icon.ico" Height="325" Width="534" ResizeMode="CanMinimize">
+        Title="DaC Launcher" Height="325" Width="534" ResizeMode="CanMinimize">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="141*"/>
@@ -27,9 +27,10 @@
         <CheckBox Name="khazadStartCheck" Content="Quick KD campaign start."  
             FontSize="20" Checked="khazadStartCheck_Checked" Unchecked="khazadStartCheck_Unchecked" Margin="0,142,0,-142" Grid.ColumnSpan="3" ToolTip="Skip the Khazad-dum expedition at the start of the Khazad-dun campaign." >
         </CheckBox>
-        <Button x:Name="saveButton" Margin="22,209,103,38" Click="saveButton_Click" Content="Save Settings" Grid.Column="1"/>
+        <Button x:Name="saveButton" Margin="82,209,206,38" Click="saveButton_Click" Content="Save Settings" Grid.ColumnSpan="2"/>
+        <Button x:Name="runButton" Margin="125,209,0,38" Click="runButton_Click" Content="Save and Launch Game" Grid.Column="1"/>
         <TextBlock Name ="saved" Text="" Grid.ColumnSpan="2" Margin="0,174,289,-174">
-           
+
         </TextBlock>
     </Grid>
 </Window>

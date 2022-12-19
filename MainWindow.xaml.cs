@@ -1,21 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using PEFile;
 using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace DaC_Launcher
 {
@@ -27,7 +12,84 @@ namespace DaC_Launcher
         public MainWindow()
         {
             InitializeComponent();
+            checkInstall();
+            setLAA();
 
+        }
+
+        string exeMed = "";
+        string exeKingdoms = "";
+
+        private void checkInstall()
+        {
+            string gameDir = System.IO.Path.GetFullPath(System.IO.Path.Combine(cwd, @"..\..\"));
+            exeMed = gameDir + "/medieval2.exe";
+            exeKingdoms = gameDir + "/kingdoms.exe";
+            if (!File.Exists(exeMed) && (!File.Exists(exeKingdoms)))
+            {
+                string messageBoxText = "You have installed Divide & Conquer into the wrong location, no game executables were found.";
+                string caption = "Wrong installation";
+                MessageBoxButton button = MessageBoxButton.OK;
+                MessageBoxImage icon = MessageBoxImage.Warning;
+                MessageBoxResult result;
+
+                result = MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
+                System.Windows.Application.Current.Shutdown();
+            }
+            if (!Directory.Exists(gameDir + "data/models_missile"))
+            {
+                Directory.CreateDirectory(gameDir + "data/models_missile");
+            }
+            if(Directory.Exists(cwd + "/data/models_missile"))
+            {
+                copyFiles(cwd + "/data/models_missile", gameDir + "/data/models_missile");
+            }
+            string casFiles = gameDir + "/data/models_missile/trollmen_javelin.cas";
+            if (!File.Exists(casFiles))
+            {
+                string messageBoxText = "You have not installed the missile cas models into your Medieval 2 directory. Install the latest hotfix correctly";
+                string caption = "Missing game files";
+                MessageBoxButton button = MessageBoxButton.OK;
+                MessageBoxImage icon = MessageBoxImage.Warning;
+                MessageBoxResult newresult;
+
+                newresult = MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
+            }
+        }
+
+        private void setLAA()
+        {
+            if (File.Exists(exeMed))
+            {
+                LargeAddressAware.SetLargeAddressAware(exeMed);
+            }
+            if (File.Exists(exeKingdoms))
+            {
+                LargeAddressAware.SetLargeAddressAware(exeMed);
+            }
+        }
+
+        private void runGame()
+        {
+            var program = new System.Diagnostics.Process();
+            string argument = "@" + cwd + "\\TATW.cfg";
+            program.StartInfo.Arguments = '"' + argument + '"';
+            program.StartInfo.UseShellExecute = false;
+            program.StartInfo.RedirectStandardOutput = true;
+            program.StartInfo.CreateNoWindow = true;
+            if (File.Exists(exeKingdoms))
+            {
+                program.StartInfo.FileName = exeMed;
+            }
+            else if (File.Exists(exeMed))
+            {
+                program.StartInfo.FileName = exeMed;
+            } else
+            {
+                System.Windows.Application.Current.Shutdown();
+            }
+            program.Start();
+            System.Windows.Application.Current.Shutdown();
         }
 
         private bool mapTextures = false;
@@ -132,7 +194,13 @@ namespace DaC_Launcher
             saved.Text = "Settings saved.";
         }
 
-        private void copyFiles(string sourceDir, string destinationDir)
+
+        private void runButton_Click(object sender, RoutedEventArgs e)
+        {
+            runGame();
+        }
+
+            private void copyFiles(string sourceDir, string destinationDir)
         {
             var allFiles = Directory.GetFiles(sourceDir, "*.*", SearchOption.AllDirectories);
             foreach (string newPath in allFiles)
