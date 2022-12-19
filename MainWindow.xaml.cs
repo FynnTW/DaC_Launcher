@@ -71,6 +71,7 @@ namespace DaC_Launcher
 
         private void runGame()
         {
+            saveSettings();
             var program = new System.Diagnostics.Process();
             string argument = "@" + cwd + "\\TATW.cfg";
             program.StartInfo.Arguments = '"' + argument + '"';
@@ -156,36 +157,45 @@ namespace DaC_Launcher
 
         private void saveButton_Click(object sender, RoutedEventArgs e)
         {
+            saveSettings();
+        }
+
+        private void saveSettings()
+        {
             string sourceDir;
             string destinationDir = cwd + "/data";
 
-            if (mapTextures) {
+            if (mapTextures)
+            {
                 sourceDir = cwd + "/extra/mapTextures";
-            } 
+            }
             else
             {
                 sourceDir = cwd + "/extra/mapTexturesVanilla";
-            } 
+            }
             copyFiles(sourceDir, destinationDir);
-            if (javelinAnims) {
+            if (javelinAnims)
+            {
                 sourceDir = cwd + "/extra/javelinAnims";
-            } 
+            }
             else
             {
                 sourceDir = cwd + "/extra/javelinAnimsVanilla";
             }
             copyFiles(sourceDir, destinationDir);
-            if (permArrow) {
+            if (permArrow)
+            {
                 sourceDir = cwd + "/extra/permArrow";
-            } 
+            }
             else
             {
                 sourceDir = cwd + "/extra/permArrowVanilla";
             }
             copyFiles(sourceDir, destinationDir);
-            if (khazadStart) {
+            if (khazadStart)
+            {
                 sourceDir = cwd + "/extra/khazadStart";
-            } 
+            }
             else
             {
                 sourceDir = cwd + "/extra/khazadStartVanilla";
