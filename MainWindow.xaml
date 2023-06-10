@@ -5,32 +5,31 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DaC_Launcher"
         mc:Ignorable="d"
-        Title="DaC Launcher" Height="325" Width="534" ResizeMode="CanMinimize">
-    <Grid>
+        Title="DaC Launcher" Height="302" Width="534" ResizeMode="CanMinimize">
+    <Grid Margin="0,0,0,-6">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="141*"/>
-            <ColumnDefinition Width="251*"/>
-            <ColumnDefinition Width="71*"/>
         </Grid.ColumnDefinitions>
-        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Width="313"  FontWeight="Bold" Grid.ColumnSpan="2">
-            Optional DaC settings
-        </TextBlock>
-        <CheckBox Name="mapTexturesCheck" Content="Use alternate strategy textures."  
-            FontSize="20" Checked="mapTexturesCheck_Checked"  Unchecked="mapTexturesCheck_Unchecked" Margin="0,32,0,-32" Grid.ColumnSpan="3" ToolTip="Use the strategy map textures from the AGO mod, with a more noisy sattelite art style" >
-        </CheckBox>
-        <CheckBox Name="javelinAnimsCheck" Content="Use running up Javelin Animations."  
-            FontSize="20" Checked="javelinAnimsCheck_Checked"  Unchecked="javelinAnimsCheck_Unchecked" Margin="0,67,0,-67" Grid.ColumnSpan="3" ToolTip="Use alternate Javelin animations with which include a running-up, which look slightly more realistic at the cost of being more annoying to manage." >
-        </CheckBox>
-        <CheckBox Name="permArrowCheck" Content="Use permanent arrows."  
-            FontSize="20" Checked="permArrowCheck_Checked" Unchecked="permArrowCheck_Unchecked" Margin="0,104,0,-104" Grid.ColumnSpan="3" ToolTip="Arrows do not disappear from the ground, slight performance impact." >
-        </CheckBox>
-        <CheckBox Name="khazadStartCheck" Content="Quick KD campaign start."  
-            FontSize="20" Checked="khazadStartCheck_Checked" Unchecked="khazadStartCheck_Unchecked" Margin="0,142,0,-142" Grid.ColumnSpan="3" ToolTip="Skip the Khazad-dum expedition at the start of the Khazad-dun campaign." >
-        </CheckBox>
-        <Button x:Name="saveButton" Margin="82,209,206,38" Click="saveButton_Click" Content="Save Settings" Grid.ColumnSpan="2"/>
-        <Button x:Name="runButton" Margin="125,209,0,38" Click="runButton_Click" Content="Save and Launch Game" Grid.Column="1"/>
-        <TextBlock Name ="saved" Text="" Grid.ColumnSpan="2" Margin="0,174,289,-174">
-
-        </TextBlock>
+        <StackPanel >
+            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Width="313"  FontWeight="Bold" Grid.ColumnSpan="2">
+                Optional DaC settings
+            </TextBlock>
+            <CheckBox Name="mapTexturesCheck" Content="Use alternate strategy textures."  
+                      FontSize="20" Checked="mapTexturesCheck_Checked"  Unchecked="mapTexturesCheck_Unchecked" Grid.ColumnSpan="3" ToolTip="Use the strategy map textures from the AGO mod, with a more noisy sattelite art style" >
+            </CheckBox>
+            <CheckBox Name="javelinAnimsCheck" Content="Use running up Javelin Animations."  
+                      FontSize="20" Checked="javelinAnimsCheck_Checked"  Unchecked="javelinAnimsCheck_Unchecked" Grid.ColumnSpan="3" ToolTip="Use alternate Javelin animations with which include a running-up, which look slightly more realistic at the cost of being more annoying to manage." >
+            </CheckBox>
+            <CheckBox Name="permArrowCheck" Content="Use permanent arrows."  
+                      FontSize="20" Checked="permArrowCheck_Checked" Unchecked="permArrowCheck_Unchecked" Grid.ColumnSpan="3" ToolTip="Arrows do not disappear from the ground, slight performance impact." >
+            </CheckBox>
+            <CheckBox Name="khazadStartCheck" Content="Quick KD campaign start."  
+                      FontSize="20" Checked="khazadStartCheck_Checked" Unchecked="khazadStartCheck_Unchecked" Grid.ColumnSpan="3" ToolTip="Skip the Khazad-dum expedition at the start of the Khazad-dun campaign." >
+            </CheckBox>
+            <TextBlock Name ="saved" Text=""></TextBlock>
+            <TextBlock Name ="laaapplied" Text=""/>
+            <Button x:Name="saveButton" Click="saveButton_Click" Content="Save Settings" Grid.ColumnSpan="2"/>
+            <Button x:Name="runButton" Click="runButton_Click" Content="Save and Launch Game" Grid.Column="1"/>
+        </StackPanel>
     </Grid>
 </Window>

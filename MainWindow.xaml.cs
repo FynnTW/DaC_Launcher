@@ -8,15 +8,15 @@ namespace DaC_Launcher
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         public MainWindow()
         {
             try
             {
                 InitializeComponent();
-                checkInstall();
-                setLAA();
+                CheckInstall();
+                SetLaa();
             }
             catch (Exception e)
             {
@@ -25,208 +25,209 @@ namespace DaC_Launcher
 
         }
 
-        string exeMed = "";
-        string exeKingdoms = "";
+        private string _exeMed = "";
+        private string _exeKingdoms = "";
 
-        private void checkInstall()
+        private void CheckInstall()
         {
-            string gameDir = System.IO.Path.GetFullPath(System.IO.Path.Combine(cwd, @"..\..\"));
-            exeMed = gameDir + "/medieval2.exe";
-            exeKingdoms = gameDir + "/kingdoms.exe";
-            if (!File.Exists(exeMed) && (!File.Exists(exeKingdoms)))
+            var gameDir = Path.GetFullPath(Path.Combine(Cwd, @"..\..\"));
+            _exeMed = gameDir + "/medieval2.exe";
+            _exeKingdoms = gameDir + "/kingdoms.exe";
+            laaapplied.Text = LargeAddressAware.IsLargeAddressAware(_exeMed) ? "LAA applied" : "LAA not applied";
+            if (!File.Exists(_exeMed) && (!File.Exists(_exeKingdoms)))
             {
-                string messageBoxText = "You have installed Divide & Conquer into the wrong location, no game executables were found.";
-                string caption = "Wrong installation";
-                MessageBoxButton button = MessageBoxButton.OK;
-                MessageBoxImage icon = MessageBoxImage.Warning;
-                MessageBoxResult result;
+                const string messageBoxText = "You have installed Divide & Conquer into the wrong location, no game executables were found.";
+                const string caption = "Wrong installation";
+                const MessageBoxButton button = MessageBoxButton.OK;
+                const MessageBoxImage icon = MessageBoxImage.Warning;
 
-                result = MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
-                System.Windows.Application.Current.Shutdown();
+                MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
+                Application.Current.Shutdown();
             }
-            string casFiles = gameDir + "/data/models_missile/trollmen_javelin.cas";
+            var casFiles = gameDir + "/data/models_missile/trollmen_javelin.cas";
             if (!File.Exists(casFiles))
             {
                 if (!Directory.Exists(gameDir + "data/models_missile/textures"))
                 {
                     Directory.CreateDirectory(gameDir + "data/models_missile/textures");
                 }
-                if (Directory.Exists(cwd + "/data/models_missile"))
+                if (Directory.Exists(Cwd + "/data/models_missile"))
                 {
-                    copyFiles(cwd + "/data/models_missile", gameDir + "/data/models_missile");
+                    CopyFiles(Cwd + "/data/models_missile", gameDir + "/data/models_missile");
                 }
             }
-            if (!File.Exists(casFiles))
-            {
-                string messageBoxText = "You have not installed the missile cas models into your Medieval 2 directory. Install the latest hotfix correctly";
-                string caption = "Missing game files";
-                MessageBoxButton button = MessageBoxButton.OK;
-                MessageBoxImage icon = MessageBoxImage.Warning;
-                MessageBoxResult newresult;
 
-                newresult = MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
+            if (File.Exists(casFiles)) return;
+            {
+                const string messageBoxText = "You have not installed the missile cas models into your Medieval 2 directory. Install the latest hotfix correctly";
+                const string caption = "Missing game files";
+                const MessageBoxButton button = MessageBoxButton.OK;
+                const MessageBoxImage icon = MessageBoxImage.Warning;
+
+                MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
             }
         }
 
-        private void setLAA()
+        private void SetLaa()
         {
-            if (File.Exists(exeMed))
+            if (File.Exists(_exeMed))
             {
-                LargeAddressAware.SetLargeAddressAware(exeMed);
+                LargeAddressAware.SetLargeAddressAware(_exeMed);
             }
-            if (File.Exists(exeKingdoms))
+            if (File.Exists(_exeKingdoms))
             {
-                LargeAddressAware.SetLargeAddressAware(exeMed);
+                LargeAddressAware.SetLargeAddressAware(_exeMed);
             }
         }
 
-        private void runGame()
+        private void RunGame()
         {
-            saveSettings();
+            //SaveSettings();
             var program = new System.Diagnostics.Process();
-            string argument = "@" + cwd + "\\TATW.cfg";
+            var argument = "@" + Cwd + "\\TATW.cfg";
             program.StartInfo.Arguments = '"' + argument + '"';
             program.StartInfo.UseShellExecute = false;
             program.StartInfo.RedirectStandardOutput = true;
             program.StartInfo.CreateNoWindow = true;
-            if (File.Exists(exeKingdoms))
+            if (File.Exists(_exeKingdoms))
             {
-                program.StartInfo.FileName = exeMed;
+                program.StartInfo.FileName = _exeMed;
             }
-            else if (File.Exists(exeMed))
+            else if (File.Exists(_exeMed))
             {
-                program.StartInfo.FileName = exeMed;
-            } else
+                program.StartInfo.FileName = _exeMed;
+            }
+            else
             {
-                System.Windows.Application.Current.Shutdown();
+                Application.Current.Shutdown();
             }
             program.Start();
-            System.Windows.Application.Current.Shutdown();
+            Application.Current.Shutdown();
         }
 
-        private bool mapTextures = false;
-        private bool javelinAnims = false;
-        private bool permArrow = false;
-        private bool khazadStart = false;
+        private bool _mapTextures;
+        private bool _javelinAnims;
+        private bool _permArrow;
+        private bool _khazadStart;
 
-        static public string cwd = Directory.GetCurrentDirectory();
+        private static readonly string Cwd = Directory.GetCurrentDirectory();
 
 
         private void mapTexturesCheck_Checked(object sender, RoutedEventArgs e)
         {
-            mapTextures = true;
+            _mapTextures = true;
             saved.Text = "Unsaved settings!";
         }
 
         private void javelinAnimsCheck_Checked(object sender, RoutedEventArgs e)
         {
-            javelinAnims = true;
+            _javelinAnims = true;
             saved.Text = "Unsaved settings!";
 
         }
 
         private void permArrowCheck_Checked(object sender, RoutedEventArgs e)
         {
-            permArrow = true;
+            _permArrow = true;
             saved.Text = "Unsaved settings!";
 
         }
 
         private void khazadStartCheck_Checked(object sender, RoutedEventArgs e)
         {
-            khazadStart = true;
+            _khazadStart = true;
             saved.Text = "Unsaved settings!";
 
         }
 
         private void mapTexturesCheck_Unchecked(object sender, RoutedEventArgs e)
         {
-            mapTextures = false;
+            _mapTextures = false;
             saved.Text = "Unsaved settings!";
 
         }
 
         private void javelinAnimsCheck_Unchecked(object sender, RoutedEventArgs e)
         {
-            javelinAnims = false;
+            _javelinAnims = false;
             saved.Text = "Unsaved settings!";
 
         }
 
         private void permArrowCheck_Unchecked(object sender, RoutedEventArgs e)
         {
-            permArrow = false;
+            _permArrow = false;
             saved.Text = "Unsaved settings!";
 
         }
         private void khazadStartCheck_Unchecked(object sender, RoutedEventArgs e)
         {
-            khazadStart = false;
+            _khazadStart = false;
             saved.Text = "Unsaved settings!";
 
         }
 
         private void saveButton_Click(object sender, RoutedEventArgs e)
         {
-            saveSettings();
+            SaveSettings();
         }
 
-        private void saveSettings()
+        private void SaveSettings()
         {
             string sourceDir;
-            string destinationDir = cwd + "/data";
+            var destinationDir = Cwd + "/data";
 
-            if (mapTextures)
+            if (_mapTextures)
             {
-                sourceDir = cwd + "/extra/mapTextures";
+                sourceDir = Cwd + "/extra/mapTextures";
             }
             else
             {
-                sourceDir = cwd + "/extra/mapTexturesVanilla";
+                sourceDir = Cwd + "/extra/mapTexturesVanilla";
             }
-            copyFiles(sourceDir, destinationDir);
-            if (javelinAnims)
+            CopyFiles(sourceDir, destinationDir);
+            if (_javelinAnims)
             {
-                sourceDir = cwd + "/extra/javelinAnims";
+                sourceDir = Cwd + "/extra/javelinAnims";
             }
             else
             {
-                sourceDir = cwd + "/extra/javelinAnimsVanilla";
+                sourceDir = Cwd + "/extra/javelinAnimsVanilla";
             }
-            copyFiles(sourceDir, destinationDir);
-            if (permArrow)
+            CopyFiles(sourceDir, destinationDir);
+            if (_permArrow)
             {
-                sourceDir = cwd + "/extra/permArrow";
+                sourceDir = Cwd + "/extra/permArrow";
             }
             else
             {
-                sourceDir = cwd + "/extra/permArrowVanilla";
+                sourceDir = Cwd + "/extra/permArrowVanilla";
             }
-            copyFiles(sourceDir, destinationDir);
-            if (khazadStart)
+            CopyFiles(sourceDir, destinationDir);
+            if (_khazadStart)
             {
-                sourceDir = cwd + "/extra/khazadStart";
+                sourceDir = Cwd + "/extra/khazadStart";
             }
             else
             {
-                sourceDir = cwd + "/extra/khazadStartVanilla";
+                sourceDir = Cwd + "/extra/khazadStartVanilla";
             }
-            copyFiles(sourceDir, destinationDir);
+            CopyFiles(sourceDir, destinationDir);
             saved.Text = "Settings saved.";
         }
 
 
         private void runButton_Click(object sender, RoutedEventArgs e)
         {
-            runGame();
+            RunGame();
         }
 
-            private void copyFiles(string sourceDir, string destinationDir)
+        private static void CopyFiles(string sourceDir, string destinationDir)
         {
             var allFiles = Directory.GetFiles(sourceDir, "*.*", SearchOption.AllDirectories);
-            foreach (string newPath in allFiles)
+            foreach (var newPath in allFiles)
             {
-                bool overwriteFiles = true;
+                const bool overwriteFiles = true;
                 File.Copy(newPath, newPath.Replace(sourceDir, destinationDir), overwriteFiles);
             }
         }
