@@ -5,27 +5,34 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DaC_Launcher"
         mc:Ignorable="d"
-        Title="DaC Launcher" Height="302" Width="534" ResizeMode="CanMinimize">
-    <Grid Margin="0,0,0,-6">
+        Title="DaC Launcher" Height="224" Width="534" ResizeMode="CanMinimize">
+    <Grid Height="319" VerticalAlignment="Top">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="141*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel >
+        <StackPanel Margin="0,0,0,111" >
             <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Width="313"  FontWeight="Bold" Grid.ColumnSpan="2">
                 Optional DaC settings
             </TextBlock>
+            <!--
             <CheckBox Name="mapTexturesCheck" Content="Use alternate strategy textures."  
                       FontSize="20" Checked="mapTexturesCheck_Checked"  Unchecked="mapTexturesCheck_Unchecked" Grid.ColumnSpan="3" ToolTip="Use the strategy map textures from the AGO mod, with a more noisy sattelite art style" >
             </CheckBox>
             <CheckBox Name="javelinAnimsCheck" Content="Use running up Javelin Animations."  
                       FontSize="20" Checked="javelinAnimsCheck_Checked"  Unchecked="javelinAnimsCheck_Unchecked" Grid.ColumnSpan="3" ToolTip="Use alternate Javelin animations with which include a running-up, which look slightly more realistic at the cost of being more annoying to manage." >
             </CheckBox>
+            -->
             <CheckBox Name="permArrowCheck" Content="Use permanent arrows."  
                       FontSize="20" Checked="permArrowCheck_Checked" Unchecked="permArrowCheck_Unchecked" Grid.ColumnSpan="3" ToolTip="Arrows do not disappear from the ground, slight performance impact." >
             </CheckBox>
+            <CheckBox Name="bypassLauncherCheck" Content="Bypass launcher on future start."  
+                      FontSize="20" Checked="bypassLauncherCheck_Checked" Unchecked="bypassLauncherCheck_Unchecked" Grid.ColumnSpan="3" ToolTip="start immediately without a GUI popup." >
+            </CheckBox>
+            <!--
             <CheckBox Name="khazadStartCheck" Content="Quick KD campaign start."  
                       FontSize="20" Checked="khazadStartCheck_Checked" Unchecked="khazadStartCheck_Unchecked" Grid.ColumnSpan="3" ToolTip="Skip the Khazad-dum expedition at the start of the Khazad-dun campaign." >
             </CheckBox>
+            -->
             <TextBlock Name ="saved" Text=""></TextBlock>
             <TextBlock Name ="laaapplied" Text=""/>
             <Button x:Name="saveButton" Click="saveButton_Click" Content="Save Settings" Grid.ColumnSpan="2"/>

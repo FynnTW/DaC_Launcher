@@ -1,4 +1,5 @@
-﻿using PEFile;
+﻿using Newtonsoft.Json;
+using PEFile;
 using System;
 using System.IO;
 using System.Windows;
@@ -15,8 +16,12 @@ namespace DaC_Launcher
             try
             {
                 InitializeComponent();
+                LoadSettings();
                 CheckInstall();
-                SetLaa();
+                if (_settings is { StartInstantly: true })
+                {
+                    RunGame();
+                }
             }
             catch (Exception e)
             {
@@ -25,8 +30,26 @@ namespace DaC_Launcher
 
         }
 
+        private void LoadSettings()
+        {
+            if (File.Exists(Cwd + "/DaC_Config.json"))
+            {
+                _settings = JsonConvert.DeserializeObject<Settings>(File.ReadAllText(Cwd + "/DaC_Config.json"));
+                if (_settings is not { PermanentArrows: true }) return;
+                permArrowCheck.IsChecked = true;
+                saved.Text = "";
+            }
+            else
+            {
+                _settings = new Settings();
+                var json = JsonConvert.SerializeObject(_settings, Formatting.Indented);
+                File.WriteAllText(Cwd + "/DaC_Config.json", json);
+            }
+        }
+
         private string _exeMed = "";
         private string _exeKingdoms = "";
+        private Settings? _settings = new();
 
         private void CheckInstall()
         {
@@ -36,8 +59,8 @@ namespace DaC_Launcher
             laaapplied.Text = LargeAddressAware.IsLargeAddressAware(_exeMed) ? "LAA applied" : "LAA not applied";
             if (!File.Exists(_exeMed) && (!File.Exists(_exeKingdoms)))
             {
-                const string messageBoxText = "You have installed Divide & Conquer into the wrong location, no game executables were found.";
-                const string caption = "Wrong installation";
+                const string messageBoxText = "You have installed Divide & Conquer into the wrong location, no game executables were found. Check your path to the mod folder.";
+                const string caption = "Wrong installation!";
                 const MessageBoxButton button = MessageBoxButton.OK;
                 const MessageBoxImage icon = MessageBoxImage.Warning;
 
@@ -68,6 +91,32 @@ namespace DaC_Launcher
             }
         }
 
+        private bool LaaWarning()
+        {
+            const string messageBoxText = "You have not applied LAA, you will experience many crashes. Do you want to apply it now?";
+            const string caption = "LAA has not been applied";
+            const MessageBoxButton button = MessageBoxButton.YesNoCancel;
+            const MessageBoxImage icon = MessageBoxImage.Warning;
+
+            var result = MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
+            switch (result)
+            {
+                case MessageBoxResult.Yes:
+                    SetLaa();
+                    return true;
+                case MessageBoxResult.No:
+                    return true;
+                case MessageBoxResult.Cancel:
+                    return false;
+                case MessageBoxResult.None:
+                    return false;
+                case MessageBoxResult.OK:
+                    return false;
+                default:
+                    return false;
+            }
+        }
+
         private void SetLaa()
         {
             if (File.Exists(_exeMed))
@@ -82,25 +131,35 @@ namespace DaC_Launcher
 
         private void RunGame()
         {
-            //SaveSettings();
+            SaveSettings();
             var program = new System.Diagnostics.Process();
             var argument = "@" + Cwd + "\\TATW.cfg";
             program.StartInfo.Arguments = '"' + argument + '"';
             program.StartInfo.UseShellExecute = false;
             program.StartInfo.RedirectStandardOutput = true;
             program.StartInfo.CreateNoWindow = true;
+            var startGame = true;
             if (File.Exists(_exeKingdoms))
             {
+                if (!LargeAddressAware.IsLargeAddressAware(_exeKingdoms))
+                {
+                    startGame = LaaWarning();
+                }
                 program.StartInfo.FileName = _exeMed;
             }
             else if (File.Exists(_exeMed))
             {
+                if (!LargeAddressAware.IsLargeAddressAware(_exeMed))
+                {
+                    startGame = LaaWarning();
+                }
                 program.StartInfo.FileName = _exeMed;
             }
             else
             {
                 Application.Current.Shutdown();
             }
+            if (!startGame) return;
             program.Start();
             Application.Current.Shutdown();
         }
@@ -109,6 +168,7 @@ namespace DaC_Launcher
         private bool _javelinAnims;
         private bool _permArrow;
         private bool _khazadStart;
+        private bool _bypassLauncher;
 
         private static readonly string Cwd = Directory.GetCurrentDirectory();
 
@@ -154,6 +214,18 @@ namespace DaC_Launcher
 
         }
 
+        private void bypassLauncherCheck_Checked(object sender, RoutedEventArgs e)
+        {
+            _bypassLauncher = true;
+            saved.Text = "Unsaved settings!";
+        }
+
+        private void bypassLauncherCheck_Unchecked(object sender, RoutedEventArgs e)
+        {
+            _bypassLauncher = false;
+            saved.Text = "Unsaved settings!";
+        }
+
         private void permArrowCheck_Unchecked(object sender, RoutedEventArgs e)
         {
             _permArrow = false;
@@ -177,24 +249,24 @@ namespace DaC_Launcher
             string sourceDir;
             var destinationDir = Cwd + "/data";
 
-            if (_mapTextures)
-            {
-                sourceDir = Cwd + "/extra/mapTextures";
-            }
-            else
-            {
-                sourceDir = Cwd + "/extra/mapTexturesVanilla";
-            }
-            CopyFiles(sourceDir, destinationDir);
-            if (_javelinAnims)
-            {
-                sourceDir = Cwd + "/extra/javelinAnims";
-            }
-            else
-            {
-                sourceDir = Cwd + "/extra/javelinAnimsVanilla";
-            }
-            CopyFiles(sourceDir, destinationDir);
+            //if (_mapTextures)
+            //{
+            //    sourceDir = Cwd + "/extra/mapTextures";
+            //}
+            //else
+            //{
+            //    sourceDir = Cwd + "/extra/mapTexturesVanilla";
+            //}
+            //CopyFiles(sourceDir, destinationDir);
+            //if (_javelinAnims)
+            //{
+            //    sourceDir = Cwd + "/extra/javelinAnims";
+            //}
+            //else
+            //{
+            //    sourceDir = Cwd + "/extra/javelinAnimsVanilla";
+            //}
+            //CopyFiles(sourceDir, destinationDir);
             if (_permArrow)
             {
                 sourceDir = Cwd + "/extra/permArrow";
@@ -204,15 +276,19 @@ namespace DaC_Launcher
                 sourceDir = Cwd + "/extra/permArrowVanilla";
             }
             CopyFiles(sourceDir, destinationDir);
-            if (_khazadStart)
-            {
-                sourceDir = Cwd + "/extra/khazadStart";
-            }
-            else
-            {
-                sourceDir = Cwd + "/extra/khazadStartVanilla";
-            }
-            CopyFiles(sourceDir, destinationDir);
+            if (_settings != null) _settings.PermanentArrows = _permArrow;
+            if (_settings != null) _settings.StartInstantly = _bypassLauncher;
+            //if (_khazadStart)
+            //{
+            //    sourceDir = Cwd + "/extra/khazadStart";
+            //}
+            //else
+            //{
+            //    sourceDir = Cwd + "/extra/khazadStartVanilla";
+            //}
+            //CopyFiles(sourceDir, destinationDir);
+            var json = JsonConvert.SerializeObject(_settings, Formatting.Indented);
+            File.WriteAllText(Cwd + "/DaC_Config.json", json);
             saved.Text = "Settings saved.";
         }
 
