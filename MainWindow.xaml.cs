@@ -275,7 +275,11 @@ namespace DaC_Launcher
             {
                 sourceDir = Cwd + "/extra/permArrowVanilla";
             }
-            CopyFiles(sourceDir, destinationDir);
+
+            if (Directory.Exists(sourceDir) && Directory.Exists(destinationDir))
+            {
+                CopyFiles(sourceDir, destinationDir);
+            }
             if (_settings != null) _settings.PermanentArrows = _permArrow;
             if (_settings != null) _settings.StartInstantly = _bypassLauncher;
             //if (_khazadStart)
