@@ -56,7 +56,6 @@ namespace DaC_Launcher
             var gameDir = Path.GetFullPath(Path.Combine(Cwd, @"..\..\"));
             _exeMed = gameDir + "/medieval2.exe";
             _exeKingdoms = gameDir + "/kingdoms.exe";
-            laaapplied.Text = LargeAddressAware.IsLargeAddressAware(_exeMed) ? "LAA applied" : "LAA not applied";
             if (!File.Exists(_exeMed) && (!File.Exists(_exeKingdoms)))
             {
                 const string messageBoxText = "You have installed Divide & Conquer into the wrong location, no game executables were found. Check your path to the mod folder.";
@@ -66,6 +65,14 @@ namespace DaC_Launcher
 
                 MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
                 Application.Current.Shutdown();
+            }
+            if (File.Exists(_exeKingdoms))
+            {
+                laaapplied.Text = LargeAddressAware.IsLargeAddressAware(_exeKingdoms) ? "LAA applied" : "LAA not applied";
+            }
+            else
+            {
+                laaapplied.Text = LargeAddressAware.IsLargeAddressAware(_exeMed) ? "LAA applied" : "LAA not applied";
             }
             var casFiles = gameDir + "/data/models_missile/trollmen_javelin.cas";
             if (!File.Exists(casFiles))
