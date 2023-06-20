@@ -132,7 +132,7 @@ namespace DaC_Launcher
             }
             if (File.Exists(_exeKingdoms))
             {
-                LargeAddressAware.SetLargeAddressAware(_exeMed);
+                LargeAddressAware.SetLargeAddressAware(_exeKingdoms);
             }
         }
 
@@ -152,7 +152,7 @@ namespace DaC_Launcher
                 {
                     startGame = LaaWarning();
                 }
-                program.StartInfo.FileName = _exeMed;
+                program.StartInfo.FileName = _exeKingdoms;
             }
             else if (File.Exists(_exeMed))
             {
