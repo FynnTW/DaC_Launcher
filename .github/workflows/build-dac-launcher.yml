@@ -29,7 +29,6 @@ jobs:
         run: dotnet publish -c Release --no-restore
 
       # Upload build artifact
-      - name: Upload
       - uses: actions/upload-artifact@v3
         with:
           name: DaC_Launcher
