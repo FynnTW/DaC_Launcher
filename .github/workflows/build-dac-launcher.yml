@@ -32,4 +32,4 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: DaC_Launcher
-          path: bin\Release\net6.0-windows\win-x86\publish\DaC_Launcher.exe
+          path: /home/runner/work/DaC_Launcher/DaC_Launcher/bin/Release/net6.0-windows/win-x86/publish/DaC_Launcher.exe
