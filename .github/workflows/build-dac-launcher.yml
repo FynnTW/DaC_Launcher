@@ -26,11 +26,11 @@ jobs:
 
       # Build DaC Launcher
       - name: Build
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet publish -c Release --no-restore
 
       # Upload build artifact
       - name: Upload
       - uses: actions/upload-artifact@v3
         with:
           name: DaC_Launcher
-          path: DaC_Launcher.exe
+          path: bin\Release\net6.0-windows\win-x86\publish\DaC_Launcher.exe
