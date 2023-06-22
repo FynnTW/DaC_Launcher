@@ -11,6 +11,7 @@
     <SelfContained>false</SelfContained>
     <RuntimeIdentifier>win-x86</RuntimeIdentifier>
   	<RollForward>Major</RollForward>
+    <EnableWindowsTargeting>True<EnableWindowsTargeting>
   </PropertyGroup>
 
   <ItemGroup>
