@@ -1,0 +1,35 @@
+name: build-dac-launcher
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dotnet-version: [ '6.0.x' ]
+
+    steps:
+      # Checkout the repo
+      - uses: actions/checkout@v3
+
+      # Setup .net
+      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
+
+      # Setup dependencies
+      - name: Install dependencies
+        run: dotnet restore
+
+      # Build DaC Launcher
+      - name: Build
+        run: dotnet publish -c Release --no-restore
+
+      # Upload build artifact
+      - uses: actions/upload-artifact@v3
+        with:
+          name: DaC_Launcher
+          path: /home/runner/work/DaC_Launcher/DaC_Launcher/bin/Release/net6.0-windows/win-x86/publish/DaC_Launcher.exe
