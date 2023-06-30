@@ -3,6 +3,7 @@ using PEFile;
 using System;
 using System.IO;
 using System.Windows;
+using System.Windows.Navigation;
 
 namespace DaC_Launcher
 {
