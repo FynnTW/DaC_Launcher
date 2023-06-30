@@ -29,7 +29,7 @@
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="22"
                 Width="Auto" Foreground="AntiqueWhite" FontWeight="Bold" Grid.ColumnSpan="2"
                 FontFamily="Constantia">
-                Optional DaC settings
+                Optional DaC Settings
             </TextBlock>
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="13"
                 Width="Auto" Foreground="#CFA985" FontWeight="Bold" Grid.ColumnSpan="3"
