@@ -5,109 +5,110 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:DaC_Launcher"
     mc:Ignorable="d"
-    Title="DaC Launcher" Height="Auto" Width="534" ResizeMode="CanMinimize" Background="Transparent"
-    AllowsTransparency="True">
+    Title="DaC Launcher"
+    Width="600"
+    ResizeMode="CanMinimize"
+    WindowStartupLocation="CenterScreen"
+    SizeToContent="Height"
+>
 
+    <Grid VerticalAlignment="Top">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="141*" />
+        </Grid.ColumnDefinitions>
 
-    <!-- Background Image -->
-    <Window.Resources>
-        <VisualBrush x:Key="myBrush">
-            <VisualBrush.Visual>
-                <Grid>
-                    <Rectangle Fill="Red" />
-                    <Image Source="Resources/background.png" />
-                </Grid>
-            </VisualBrush.Visual>
-        </VisualBrush>
-    </Window.Resources>
+        <!-- Background Image -->
+        <Grid.Background>
+            <ImageBrush  ImageSource="pack://application:,,,/Images/background.png"
+                AlignmentY="Top" AlignmentX="Center" />
+        </Grid.Background>
 
-    <Border Background="{StaticResource myBrush}" Height="Auto" VerticalAlignment="Top">
-        <Grid VerticalAlignment="Top">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="141*" />
-            </Grid.ColumnDefinitions>
+        <StackPanel>
 
-            <StackPanel>
+            <!-- Headers -->
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="22"
+                Width="Auto" Foreground="AntiqueWhite" FontWeight="Bold" Grid.ColumnSpan="2"
+                FontFamily="Constantia">
+                Optional DaC settings
+            </TextBlock>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="13"
+                Width="Auto" Foreground="#CFA985" FontWeight="Bold" Grid.ColumnSpan="3"
+                FontFamily="Constantia">
+                <Hyperlink
+                    NavigateUri="https://github.com/FynnTW/DaC_Launcher#configuration-options"
+                    RequestNavigate="Hyperlink_RequestNavigate"
+                    Foreground="#CFA985">
+                   Click here for more info
+                </Hyperlink>
+            </TextBlock>
 
-                <!-- Headers -->
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20"
-                    Width="Auto" Foreground="AntiqueWhite" FontWeight="Bold" Grid.ColumnSpan="2" FontFamily="Constantia">
-                    Optional DaC settings
-                </TextBlock>
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="10"
-                    Width="Auto" Foreground="#CFA985" FontWeight="Bold" Grid.ColumnSpan="3" FontFamily="Constantia">
-                    <Hyperlink
-                        NavigateUri="https://github.com/FynnTW/DaC_Launcher#configuration-options">
-                        Click here for more info
-                    </Hyperlink>
-                </TextBlock>
-
-                <!-- List Items -->
-                <!-- AGO Map textures -->
-                <!-- <CheckBox Foreground="AntiqueWhite" Name="mapTexturesCheck"
-                    Content="Use alternate strategy textures"
-                    FontSize="18" Checked="mapTexturesCheck_Checked"
-                    Unchecked="mapTexturesCheck_Unchecked"
-                    Grid.ColumnSpan="3"
-                    ToolTip="Use the strategy map textures from the AGO mod, with a
+            <!-- List Items -->
+            <!-- AGO Map textures -->
+            <!-- <CheckBox Foreground="AntiqueWhite" Name="mapTexturesCheck"
+                Content="Use alternate strategy textures"
+                FontSize="18" Checked="mapTexturesCheck_Checked"
+                Unchecked="mapTexturesCheck_Unchecked"
+                Grid.ColumnSpan="3"
+                ToolTip="Use the strategy map textures from the AGO mod, with a
                 more noisy sattelite art style"
                 VerticalContentAlignment="Center">
-                </CheckBox> -->
+            </CheckBox> -->
 
-                <!-- Javelin Throwing Animation -->
-                <!-- <CheckBox Foreground="AntiqueWhite" Name="javelinAnimsCheck"
-                    Content="Use running up Javelin animations"
-                    FontSize="18" Checked="javelinAnimsCheck_Checked"
-                    Unchecked="javelinAnimsCheck_Unchecked"
-                    Grid.ColumnSpan="3"
-                    ToolTip="Use alternate javelin animations with which include a
+            <!-- Javelin Throwing Animation -->
+            <!-- <CheckBox Foreground="AntiqueWhite" Name="javelinAnimsCheck"
+                Content="Use running up Javelin animations"
+                FontSize="18" Checked="javelinAnimsCheck_Checked"
+                Unchecked="javelinAnimsCheck_Unchecked"
+                Grid.ColumnSpan="3"
+                ToolTip="Use alternate javelin animations with which include a
                 running-up, which look slightly more realistic at the cost of being more annoying to
                 manage."
                 VerticalContentAlignment="Center">
-                </CheckBox> -->
+            </CheckBox> -->
 
-                <!-- Permanent Arrows -->
-                <CheckBox Foreground="AntiqueWhite" Name="permArrowCheck"
-                    Content="Use permanent arrows"
-                    FontSize="18" Checked="permArrowCheck_Checked"
-                    Unchecked="permArrowCheck_Unchecked" Grid.ColumnSpan="3"
-                    ToolTip="Arrows do not disappear from the ground, slight performance impact."
-                    VerticalContentAlignment="Center">
-                </CheckBox>
+            <!-- Permanent Arrows -->
+            <CheckBox Foreground="AntiqueWhite" Name="permArrowCheck"
+                Content="Use permanent arrows"
+                FontSize="18" Checked="permArrowCheck_Checked"
+                Unchecked="permArrowCheck_Unchecked" Grid.ColumnSpan="3"
+                ToolTip="Arrows do not disappear from the ground, slight performance impact."
+                VerticalContentAlignment="Center">
+            </CheckBox>
 
-                <!-- Skip launcher -->
-                <CheckBox Foreground="AntiqueWhite" Name="bypassLauncherCheck"
-                    Content="Bypass launcher on future start"
-                    FontSize="18" Checked="bypassLauncherCheck_Checked"
-                    Unchecked="bypassLauncherCheck_Unchecked" Grid.ColumnSpan="3"
-                    ToolTip="Start immediately without a GUI popup"
-                    VerticalContentAlignment="Center">
-                </CheckBox>
+            <!-- Skip launcher -->
+            <CheckBox Foreground="AntiqueWhite" Name="bypassLauncherCheck"
+                Content="Bypass launcher on future start"
+                FontSize="18" Checked="bypassLauncherCheck_Checked"
+                Unchecked="bypassLauncherCheck_Unchecked" Grid.ColumnSpan="3"
+                ToolTip="Start immediately without a GUI popup"
+                VerticalContentAlignment="Center">
+            </CheckBox>
 
-                <!-- Khazad-Dum Start -->
-                <!-- <CheckBox Name="khazadStartCheck" Content="Quick KD campaign start"
-                    Foreground="AntiqueWhite"
-                    FontSize="18" Checked="khazadStartCheck_Checked"
-                    Unchecked="khazadStartCheck_Unchecked"
-                    Grid.ColumnSpan="3"
-                    ToolTip="Skip the Khazad-dum expedition at the start of the
+            <!-- Khazad-Dum Start -->
+            <!-- <CheckBox Name="khazadStartCheck" Content="Quick KD campaign start"
+                Foreground="AntiqueWhite"
+                FontSize="18" Checked="khazadStartCheck_Checked"
+                Unchecked="khazadStartCheck_Unchecked"
+                Grid.ColumnSpan="3"
+                ToolTip="Skip the Khazad-dum expedition at the start of the
                 Khazad-dun campaign"
                 VerticalContentAlignment="Center">
-                </CheckBox> -->
+            </CheckBox> -->
 
+            <!-- Notification Text -->
+            <TextBlock HorizontalAlignment="Center" Foreground="#CEB9A5" FontWeight="Bold"
+                Name="saved" Text=""></TextBlock>
+            <TextBlock Text=""/>
+            <TextBlock HorizontalAlignment="Center" Foreground="Green" FontWeight="Bold"
+                Name="laaapplied" Text="" />
+            <TextBlock Text=""/>
 
-                <!-- Notification Text -->
-                <TextBlock HorizontalAlignment="Center" Foreground="Green" FontWeight="Bold" Name="saved" Text=""></TextBlock>
-                <TextBlock HorizontalAlignment="Center" Foreground="Green" FontWeight="Bold" Name="laaapplied" Text="" />
-
-                <!-- Buttons -->
-                <Button x:Name="saveButton" Click="saveButton_Click" Content="Save Settings"
-                    Grid.ColumnSpan="2" Background="#CEB9A5" Padding="5"
-                    VerticalAlignment="Bottom" />
-                <Button x:Name="runButton" Click="runButton_Click" Content="Save and Launch Game"
-                    Background="#CEB9A5" Padding="5" />
-            </StackPanel>
-        </Grid>
-    </Border>
-
+            <!-- Buttons -->
+            <Button x:Name="saveButton" Click="saveButton_Click" Content="Save Settings"
+                Grid.ColumnSpan="2" Background="#CEB9A5" Padding="5"
+                VerticalAlignment="Bottom" />
+            <Button x:Name="runButton" Click="runButton_Click" Content="Save and Launch Game"
+                Background="#CEB9A5" Padding="5" />
+        </StackPanel>
+    </Grid>
 </Window>
