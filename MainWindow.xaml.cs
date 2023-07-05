@@ -1,8 +1,10 @@
 ﻿using Newtonsoft.Json;
 using PEFile;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Windows;
+using System.Windows.Navigation;
 
 namespace DaC_Launcher
 {
@@ -27,7 +29,6 @@ namespace DaC_Launcher
             {
                 MessageBox.Show($"Start not possible or Exception occurs {e}  ", "DaC Launcher Error");
             }
-
         }
 
         private void LoadSettings()
@@ -317,6 +318,13 @@ namespace DaC_Launcher
                 const bool overwriteFiles = true;
                 File.Copy(newPath, newPath.Replace(sourceDir, destinationDir), overwriteFiles);
             }
+        }
+        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            // for .NET Core you need to add UseShellExecute = true
+            // see https://learn.microsoft.com/dotnet/api/system.diagnostics.processstartinfo.useshellexecute#property-value
+            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri) { UseShellExecute = true });
+            e.Handled = true;
         }
     }
 }

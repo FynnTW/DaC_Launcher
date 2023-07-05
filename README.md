@@ -6,7 +6,7 @@
 
 The following is a repo for the [Divide and Conquer V5](https://www.moddb.com/mods/divide-and-conquer) Launcher. The program is used to configure different aspects of the mod, ensure LAA is applied and to launch the mod.
 
-  <img src="https://i.imgur.com/w9E7Su5.png" width="1920" alt="DaC Launcher" /></a>
+  <img src="https://i.imgur.com/QijEgXi.png" width="1920" alt="DaC Launcher" /></a>
 
 ## Configuration Options
 The launcher currently provides the following configuration options

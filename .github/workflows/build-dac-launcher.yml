@@ -5,7 +5,7 @@ on: [push]
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: windows-2019
     strategy:
       matrix:
         dotnet-version: [ '6.0.x' ]
@@ -32,4 +32,4 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: DaC_Launcher
-          path: /home/runner/work/DaC_Launcher/DaC_Launcher/bin/Release/net6.0-windows/win-x86/publish/DaC_Launcher.exe
+          path: D:\a\DaC_Launcher\DaC_Launcher\bin\Release\net6.0-windows\win-x86\publish\DaC_Launcher.exe
