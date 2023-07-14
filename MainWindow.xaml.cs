@@ -36,8 +36,22 @@ namespace DaC_Launcher
             if (File.Exists(Cwd + "/DaC_Config.json"))
             {
                 _settings = JsonConvert.DeserializeObject<Settings>(File.ReadAllText(Cwd + "/DaC_Config.json"));
-                if (_settings is not { PermanentArrows: true }) return;
-                permArrowCheck.IsChecked = true;
+                if (_settings is { PermanentArrows: true })
+                {
+                    permArrowCheck.IsChecked = true;
+                }
+                if (_settings is { KhazadJourneySkip: true })
+                {
+                    khazadStartCheck.IsChecked = true;
+                }
+                if (_settings is { JavelinRunAnims: true })
+                {
+                    javelinAnimsCheck.IsChecked = true;
+                }
+                if (_settings is { AgoTextures: true })
+                {
+                    mapTexturesCheck.IsChecked = true;
+                }
                 saved.Text = "";
             }
             else
@@ -257,24 +271,28 @@ namespace DaC_Launcher
             string sourceDir;
             var destinationDir = Cwd + "/data";
 
-            //if (_mapTextures)
-            //{
-            //    sourceDir = Cwd + "/extra/mapTextures";
-            //}
-            //else
-            //{
-            //    sourceDir = Cwd + "/extra/mapTexturesVanilla";
-            //}
-            //CopyFiles(sourceDir, destinationDir);
-            //if (_javelinAnims)
-            //{
-            //    sourceDir = Cwd + "/extra/javelinAnims";
-            //}
-            //else
-            //{
-            //    sourceDir = Cwd + "/extra/javelinAnimsVanilla";
-            //}
-            //CopyFiles(sourceDir, destinationDir);
+            if (_mapTextures)
+            {
+                sourceDir = Cwd + "/extra/agoCampaignTextures";
+            }
+            else
+            {
+                sourceDir = Cwd + "/extra/agoCampaignTexturesVanilla";
+            }
+            CopyFiles(sourceDir, destinationDir);
+            if (_settings != null) _settings.AgoTextures = _mapTextures;
+
+            if (_javelinAnims)
+            {
+                sourceDir = Cwd + "/extra/ebiiJavelins";
+            }
+            else
+            {
+                sourceDir = Cwd + "/extra/ebiiJavelinsVanilla";
+            }
+            CopyFiles(sourceDir, destinationDir);
+            if (_settings != null) _settings.JavelinRunAnims = _javelinAnims;
+
             if (_permArrow)
             {
                 sourceDir = Cwd + "/extra/permArrow";
@@ -283,22 +301,22 @@ namespace DaC_Launcher
             {
                 sourceDir = Cwd + "/extra/permArrowVanilla";
             }
-
-            if (Directory.Exists(sourceDir) && Directory.Exists(destinationDir))
-            {
-                CopyFiles(sourceDir, destinationDir);
-            }
+            CopyFiles(sourceDir, destinationDir);
             if (_settings != null) _settings.PermanentArrows = _permArrow;
+
             if (_settings != null) _settings.StartInstantly = _bypassLauncher;
-            //if (_khazadStart)
-            //{
-            //    sourceDir = Cwd + "/extra/khazadStart";
-            //}
-            //else
-            //{
-            //    sourceDir = Cwd + "/extra/khazadStartVanilla";
-            //}
-            //CopyFiles(sourceDir, destinationDir);
+
+            if (_khazadStart)
+            {
+                sourceDir = Cwd + "/extra/kdSkip";
+            }
+            else
+            {
+                sourceDir = Cwd + "/extra/kdSkipVanilla";
+            }
+            CopyFiles(sourceDir, destinationDir);
+            if (_settings != null) _settings.KhazadJourneySkip = _khazadStart;
+
             var json = JsonConvert.SerializeObject(_settings, Formatting.Indented);
             File.WriteAllText(Cwd + "/DaC_Config.json", json);
             saved.Text = "Settings saved.";
@@ -312,6 +330,7 @@ namespace DaC_Launcher
 
         private static void CopyFiles(string sourceDir, string destinationDir)
         {
+            if (!Directory.Exists(sourceDir) || !Directory.Exists(destinationDir)) return;
             var allFiles = Directory.GetFiles(sourceDir, "*.*", SearchOption.AllDirectories);
             foreach (var newPath in allFiles)
             {
@@ -319,6 +338,7 @@ namespace DaC_Launcher
                 File.Copy(newPath, newPath.Replace(sourceDir, destinationDir), overwriteFiles);
             }
         }
+
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
             // for .NET Core you need to add UseShellExecute = true

@@ -28,12 +28,12 @@
             <!-- Headers -->
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="22"
                 Width="Auto" Foreground="AntiqueWhite" FontWeight="Bold" Grid.ColumnSpan="2"
-                FontFamily="Constantia">
+                FontFamily="Constantia" Margin="0,4,0,0">
                 Optional DaC Settings
             </TextBlock>
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="13"
                 Width="Auto" Foreground="#CFA985" FontWeight="Bold" Grid.ColumnSpan="3"
-                FontFamily="Constantia">
+                FontFamily="Constantia"  Margin="0,5,0,0">
                 <Hyperlink
                     NavigateUri="https://github.com/FynnTW/DaC_Launcher#configuration-options"
                     RequestNavigate="Hyperlink_RequestNavigate"
@@ -44,27 +44,24 @@
 
             <!-- List Items -->
             <!-- AGO Map textures -->
-            <!-- <CheckBox Foreground="AntiqueWhite" Name="mapTexturesCheck"
+            <CheckBox Foreground="AntiqueWhite" Name="mapTexturesCheck"
                 Content="Use alternate strategy textures"
                 FontSize="18" Checked="mapTexturesCheck_Checked"
                 Unchecked="mapTexturesCheck_Unchecked"
                 Grid.ColumnSpan="3"
-                ToolTip="Use the strategy map textures from the AGO mod, with a
-                more noisy sattelite art style"
+                ToolTip="Use the strategy map textures from the AGO mod, with a more realistic satellite art style"
                 VerticalContentAlignment="Center">
-            </CheckBox> -->
+            </CheckBox>
 
             <!-- Javelin Throwing Animation -->
-            <!-- <CheckBox Foreground="AntiqueWhite" Name="javelinAnimsCheck"
+            <CheckBox Foreground="AntiqueWhite" Name="javelinAnimsCheck"
                 Content="Use running up Javelin animations"
                 FontSize="18" Checked="javelinAnimsCheck_Checked"
                 Unchecked="javelinAnimsCheck_Unchecked"
                 Grid.ColumnSpan="3"
-                ToolTip="Use alternate javelin animations with which include a
-                running-up, which look slightly more realistic at the cost of being more annoying to
-                manage."
+                ToolTip="Use alternate javelin animations with which include a running-up, which look slightly more realistic at the cost of being more annoying to manage."
                 VerticalContentAlignment="Center">
-            </CheckBox> -->
+            </CheckBox>
 
             <!-- Permanent Arrows -->
             <CheckBox Foreground="AntiqueWhite" Name="permArrowCheck"
@@ -85,15 +82,14 @@
             </CheckBox>
 
             <!-- Khazad-Dum Start -->
-            <!-- <CheckBox Name="khazadStartCheck" Content="Quick KD campaign start"
+            <CheckBox Name="khazadStartCheck" Content="Quick KD campaign start"
                 Foreground="AntiqueWhite"
                 FontSize="18" Checked="khazadStartCheck_Checked"
                 Unchecked="khazadStartCheck_Unchecked"
                 Grid.ColumnSpan="3"
-                ToolTip="Skip the Khazad-dum expedition at the start of the
-                Khazad-dun campaign"
+                ToolTip="Skip the Khazad-dûm expedition at the start of the Khazad-dûm campaign"
                 VerticalContentAlignment="Center">
-            </CheckBox> -->
+            </CheckBox>
 
             <!-- Notification Text -->
             <TextBlock HorizontalAlignment="Center" Foreground="#CEB9A5" FontWeight="Bold"
