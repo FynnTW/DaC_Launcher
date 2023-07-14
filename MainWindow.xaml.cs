@@ -31,6 +31,8 @@ namespace DaC_Launcher
             }
         }
 
+        private string _mapTexturesChosen = "vanilla";
+
         private void LoadSettings()
         {
             if (File.Exists(Cwd + "/DaC_Config.json"))
@@ -51,6 +53,7 @@ namespace DaC_Launcher
                 if (_settings is { AgoTextures: true })
                 {
                     mapTexturesCheck.IsChecked = true;
+                    _mapTexturesChosen = "ago";
                 }
                 saved.Text = "";
             }
@@ -212,28 +215,24 @@ namespace DaC_Launcher
         {
             _permArrow = true;
             saved.Text = "Unsaved settings!";
-
         }
 
         private void khazadStartCheck_Checked(object sender, RoutedEventArgs e)
         {
             _khazadStart = true;
             saved.Text = "Unsaved settings!";
-
         }
 
         private void mapTexturesCheck_Unchecked(object sender, RoutedEventArgs e)
         {
             _mapTextures = false;
             saved.Text = "Unsaved settings!";
-
         }
 
         private void javelinAnimsCheck_Unchecked(object sender, RoutedEventArgs e)
         {
             _javelinAnims = false;
             saved.Text = "Unsaved settings!";
-
         }
 
         private void bypassLauncherCheck_Checked(object sender, RoutedEventArgs e)
@@ -274,10 +273,24 @@ namespace DaC_Launcher
             if (_mapTextures)
             {
                 sourceDir = Cwd + "/extra/agoCampaignTextures";
+                if (_mapTexturesChosen == "vanilla")
+                {
+                    if (File.Exists(destinationDir + "/world/maps/base/map.rwm"))
+                    {
+                        File.Delete(destinationDir + "/world/maps/base/map.rwm");
+                    }
+                }
             }
             else
             {
                 sourceDir = Cwd + "/extra/agoCampaignTexturesVanilla";
+                if (_mapTexturesChosen == "ago")
+                {
+                    if (File.Exists(destinationDir + "/world/maps/base/map.rwm"))
+                    {
+                        File.Delete(destinationDir + "/world/maps/base/map.rwm");
+                    }
+                }
             }
             CopyFiles(sourceDir, destinationDir);
             if (_settings != null) _settings.AgoTextures = _mapTextures;

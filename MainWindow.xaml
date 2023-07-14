@@ -49,7 +49,7 @@
                 FontSize="18" Checked="mapTexturesCheck_Checked"
                 Unchecked="mapTexturesCheck_Unchecked"
                 Grid.ColumnSpan="3"
-                ToolTip="Use the strategy map textures from the AGO mod, with a more realistic satellite art style"
+                ToolTip="Use the strategy map textures from the AGO mod, with a more realistic satellite art style."
                 VerticalContentAlignment="Center">
             </CheckBox>
 
@@ -77,17 +77,17 @@
                 Content="Bypass launcher on future start"
                 FontSize="18" Checked="bypassLauncherCheck_Checked"
                 Unchecked="bypassLauncherCheck_Unchecked" Grid.ColumnSpan="3"
-                ToolTip="Start immediately without a GUI popup"
+                ToolTip="Start immediately without a GUI popup."
                 VerticalContentAlignment="Center">
             </CheckBox>
 
             <!-- Khazad-Dum Start -->
-            <CheckBox Name="khazadStartCheck" Content="Quick KD campaign start"
+            <CheckBox Name="khazadStartCheck" Content="Skip Khazad-dûm expedition"
                 Foreground="AntiqueWhite"
                 FontSize="18" Checked="khazadStartCheck_Checked"
                 Unchecked="khazadStartCheck_Unchecked"
                 Grid.ColumnSpan="3"
-                ToolTip="Skip the Khazad-dûm expedition at the start of the Khazad-dûm campaign"
+                ToolTip="Skip the Khazad-dûm expedition at the start of the Khazad-dûm campaign."
                 VerticalContentAlignment="Center">
             </CheckBox>
 
