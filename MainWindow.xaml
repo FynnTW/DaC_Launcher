@@ -102,8 +102,9 @@
             <!-- Buttons -->
             <Button x:Name="saveButton" Click="saveButton_Click" Content="Save Settings"
                 Grid.ColumnSpan="2" Background="#CEB9A5" Padding="5"
-                VerticalAlignment="Bottom" />
-            <Button x:Name="runButton" Click="runButton_Click" Content="Save and Launch Game"
+                VerticalAlignment="Bottom"
+                ToolTip="This will copy files into your data directory! beware of personal modifications to the game files and make sure you add them to the 'extra' folder too" />
+            <Button x:Name="runButton" Click="runButton_Click" Content="Launch Game"
                 Background="#CEB9A5" Padding="5" />
         </StackPanel>
     </Grid>

@@ -156,7 +156,6 @@ namespace DaC_Launcher
 
         private void RunGame()
         {
-            SaveSettings();
             var program = new System.Diagnostics.Process();
             var argument = "@" + Cwd + "\\TATW.cfg";
             program.StartInfo.Arguments = '"' + argument + '"';
