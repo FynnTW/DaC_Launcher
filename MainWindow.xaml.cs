@@ -171,6 +171,11 @@ namespace DaC_Launcher
                     startGame = LaaWarning();
                 }
                 program.StartInfo.FileName = _exeKingdoms;
+                if (!startGame) return;
+                //Some disk and pirated versions need a cmd launch method for some reason, don't remove
+                string strCmdText = "/C cd ..\\..&start kingdoms.exe " + '"' + argument + '"';
+                Process.Start("CMD.exe", strCmdText);
+                Application.Current.Shutdown();
             }
             else if (File.Exists(_exeMed))
             {
