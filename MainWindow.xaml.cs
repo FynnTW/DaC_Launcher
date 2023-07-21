@@ -333,6 +333,14 @@ namespace DaC_Launcher
             }
             CopyFiles(sourceDir, destinationDir);
             if (_settings != null) _settings.KhazadJourneySkip = _khazadStart;
+            if (File.Exists(destinationDir + "/text/export_units.txt.strings.bin"))
+            {
+                File.Delete(destinationDir + "/text/export_units.txt.strings.bin");
+            }
+            if (File.Exists(destinationDir + "/text/historic_events.txt.strings.bin"))
+            {
+                File.Delete(destinationDir + "/text/historic_events.txt.strings.bin");
+            }
 
             var json = JsonConvert.SerializeObject(_settings, Formatting.Indented);
             File.WriteAllText(Cwd + "/DaC_Config.json", json);
