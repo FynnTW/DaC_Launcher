@@ -11,8 +11,15 @@ The following is a repo for the [Divide and Conquer V5](https://www.moddb.com/mo
 ## Configuration Options
 The launcher currently provides the following configuration options
 
-- **Permanent Arrows:** Ensures that arrows embedded in the ground stay for the duration of the battle and do not disappear. Has a small performance impact for low-end PCs.
+- **Use alternate strategy textures:** Use the strategy map textures from the AGO mod, with a more realistic satellite art style.
+   ![](https://cdn.discordapp.com/attachments/417013331614892042/1129740969659601016/image.png)
+   ![](https://cdn.discordapp.com/attachments/417013331614892042/1129740970167128154/image.png)
+   ![](https://cdn.discordapp.com/attachments/417013331614892042/1129740971060498502/image.png)
+   ![](https://cdn.discordapp.com/attachments/417013331614892042/1129740969659601016/image.png)
 - **Bypass Launcher:** Next time you go to launch the game via the launcher, this settings menu will not appear and you will load straight into the game (To revert this, open `Dac_Config.json` and set `StartInstantly` to `false`.)
+- **Use running up Javelin animations:** Use alternate javelin animations with which include a running-up, which look slightly more realistic at the cost of being more annoying to manage.
+- **Use permanent arrows:** Arrows do not disappear from the ground, slight performance impact.
+- **Skip Khazad-dûm expedition:** Skip the Khazad-dûm expedition at the start of the Khazad-dûm campaign.
 
 ## Download
 The launcher is included as part of the DaC install process but if for whatever reason you want to pick up the latest version, you can grab the latest artifact from the latest commit [here](link).
