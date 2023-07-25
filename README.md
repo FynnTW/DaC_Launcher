@@ -22,7 +22,7 @@ The launcher currently provides the following configuration options
 - **Skip Khazad-dûm expedition:** Skip the Khazad-dûm expedition at the start of the Khazad-dûm campaign.
 
 ## Download
-The launcher is included as part of the DaC install process but if for whatever reason you want to pick up the latest version, you can grab the latest artifact from the latest commit [here](link).
+The launcher is included as part of the DaC install process but if for whatever reason you want to pick up the latest version, you can grab the latest artifact from the latest commit [here](https://github.com/FynnTW/DaC_Launcher/actions/workflows/build-dac-launcher.yml).
 
 ## Building from source
 
