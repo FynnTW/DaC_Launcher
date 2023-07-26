@@ -156,12 +156,7 @@ namespace DaC_Launcher
 
         private void RunGame()
         {
-            var program = new System.Diagnostics.Process();
             var argument = "@" + Cwd + "\\TATW.cfg";
-            program.StartInfo.Arguments = '"' + argument + '"';
-            program.StartInfo.UseShellExecute = false;
-            program.StartInfo.RedirectStandardOutput = true;
-            program.StartInfo.CreateNoWindow = true;
             var startGame = true;
             if (File.Exists(_exeKingdoms))
             {
@@ -169,7 +164,6 @@ namespace DaC_Launcher
                 {
                     startGame = LaaWarning();
                 }
-                program.StartInfo.FileName = _exeKingdoms;
                 if (!startGame) return;
                 //Some disk and pirated versions need a cmd launch method for some reason, don't remove
                 string strCmdText = "/C cd ..\\..&start kingdoms.exe " + '"' + argument + '"';
@@ -182,14 +176,16 @@ namespace DaC_Launcher
                 {
                     startGame = LaaWarning();
                 }
-                program.StartInfo.FileName = _exeMed;
+                if (!startGame) return;
+                string strCmdText = "/C cd ..\\..&start medieval2.exe " + '"' + argument + '"';
+                Process.Start("CMD.exe", strCmdText);
+                Application.Current.Shutdown();
             }
             else
             {
                 Application.Current.Shutdown();
             }
             if (!startGame) return;
-            program.Start();
             Application.Current.Shutdown();
         }
 
