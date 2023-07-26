@@ -15,7 +15,6 @@ The launcher currently provides the following configuration options
    ![](https://cdn.discordapp.com/attachments/417013331614892042/1129740969659601016/image.png)
    ![](https://cdn.discordapp.com/attachments/417013331614892042/1129740970167128154/image.png)
    ![](https://cdn.discordapp.com/attachments/417013331614892042/1129740971060498502/image.png)
-   ![](https://cdn.discordapp.com/attachments/417013331614892042/1129740969659601016/image.png)
 - **Bypass Launcher:** Next time you go to launch the game via the launcher, this settings menu will not appear and you will load straight into the game (To revert this, open `Dac_Config.json` and set `StartInstantly` to `false`.)
 - **Use running up Javelin animations:** Use alternate javelin animations with which include a running-up, which look slightly more realistic at the cost of being more annoying to manage.
 - **Use permanent arrows:** Arrows do not disappear from the ground, slight performance impact.
